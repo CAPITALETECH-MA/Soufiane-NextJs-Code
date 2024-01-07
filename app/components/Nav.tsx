@@ -6,10 +6,8 @@ const plusIcon = "/plus.png";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/users", label: "Users" },
-  { href: "/users/new", label: "Add Users" },
-  // { href: "/avoirs", label: "Avoirs" },
-  // { href: "/facturesAcompte", label: "Factures d'acompte" },
+  { href: "/pages/users", label: "Users" },
+  { href: "/pages/new", label: "Add Users" },
 ];
 
 const Navbar = () => {

@@ -1,0 +1,9 @@
+
+                    Client Side
+
+               
+Rendring  ==>
+
+                                        Static (at built time)
+                    Server Side         
+                                        Dynamic (at request time)

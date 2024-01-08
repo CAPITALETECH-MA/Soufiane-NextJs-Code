@@ -50,8 +50,8 @@ const Navbar = () => {
                 <Link
                   className={`${
                     link.href === currentPath
-                      ? "text-blue-900"
-                      : "text-blue-500"
+                      ? "text-blue-500"
+                      : "text-blue-900"
                   }`}
                   href={link.href}
                 >

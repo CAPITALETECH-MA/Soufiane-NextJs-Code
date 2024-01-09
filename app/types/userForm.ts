@@ -3,3 +3,9 @@ export interface FormData {
   age: number;
   email: string;
 }
+
+export interface FormField {
+  type: string;
+  name: keyof FormData;
+  placeholder: string;
+}

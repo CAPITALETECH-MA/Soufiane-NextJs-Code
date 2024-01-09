@@ -6,7 +6,7 @@ import prisma from "../../../prisma/client";
 const usersValidator = z.object({
   name: z.string().min(8),
   email: z.string().email(),
-  age: z.number().min(18).max(80),
+  age: z.number().min(18).max(100),
 });
 
 // Get all users with PRISMA
@@ -29,6 +29,8 @@ export async function GET(req: NextRequest) {
 // ADD User
 export async function POST(req: NextRequest) {
   const body = await req.json();
+  console.log("Request Body:", body);
+
   const validation = usersValidator.safeParse(body);
 
   if (!validation.success) {

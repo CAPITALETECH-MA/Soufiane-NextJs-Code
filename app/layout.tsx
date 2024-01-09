@@ -1,7 +1,15 @@
+// Setup my Primereact
+import { PrimeReactProvider } from "primereact/api";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+
+// My CSS
+import "./globals.css";
+
+// My Components
+import Nav from "./components/Nav";
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import Nav from "./components/Nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Nav />
-        <div>{children}</div>
+        <PrimeReactProvider>
+          <Nav />
+
+          <div>{children}</div>
+        </PrimeReactProvider>
       </body>
     </html>
   );

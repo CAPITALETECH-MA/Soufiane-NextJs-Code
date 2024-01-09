@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Metadata } from "next";
-import Form from "@/app/components/Form";
+import UserForm from "@/app/components/userForm";
 
 export const metadata: Metadata = {
   title: "Add Users",
@@ -12,7 +12,7 @@ const page = () => {
   return (
     <>
       <h3>Add Users</h3>
-      <Form />
+      <UserForm />
     </>
   );
 };

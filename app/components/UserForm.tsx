@@ -1,22 +1,56 @@
 // components/UserForm.tsx
 "use client";
 import React, { useState } from "react";
-import { FormData } from "../types/userForm";
+import { FormData } from "@/app/types/userForm";
+import { FormEvent, ChangeEvent } from "react";
 
-const UserForm: React.FC = () => {
+const UserForm = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    age: "",
+    age: 0,
     email: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+    // Convert to number if the input type is 'number'
+    const updatedValue = type === "number" ? Number(value) : value;
+    setFormData({ ...formData, [name]: updatedValue });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(null);
+
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error submitting form");
+      }
+
+      // Just fpr testing 
+      // const result = await response.json();
+      // console.log(result);
+
+      setSubmitSuccess("Form submitted successfully!");
+    } catch (error) {
+      console.error(error);
+      setSubmitError("Failed to submit form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -28,32 +62,35 @@ const UserForm: React.FC = () => {
         type="text"
         name="name"
         placeholder="Name"
+        className="border p-2 rounded"
         value={formData.name}
         onChange={handleChange}
-        className="border p-2 rounded"
       />
       <input
         type="number"
         name="age"
         placeholder="Age"
+        className="border p-2 rounded"
         value={formData.age}
         onChange={handleChange}
-        className="border p-2 rounded"
       />
       <input
         type="email"
         name="email"
         placeholder="Email"
+        className="border p-2 rounded"
         value={formData.email}
         onChange={handleChange}
-        className="border p-2 rounded"
       />
       <button
         type="submit"
         className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        disabled={isSubmitting}
       >
-        Submit
+        {isSubmitting ? "Submitting..." : "Submit"}
       </button>
+      {submitError && <div className="text-red-500">{submitError}</div>}
+      {submitSuccess && <div className="text-green-500">{submitSuccess}</div>}
     </form>
   );
 };

@@ -1,0 +1,10 @@
+*************** Prisma / Postgresql / Mongoose *********************
+
+Prisma is an Object-Relational Mapping (ORM) tool, similar to Mongoose, which is an Object-Document Mapper (ODM). 
+Both are designed to simplify interactions with databases in application development. 
+Prisma is typically used with SQL databases (like PostgreSQL, MySQL, SQLite), providing a type-safe API for building and running queries, 
+while Mongoose is used with MongoDB, a NoSQL database, to manage relationships between data and translate between objects in code and their representation in MongoDB.
+
+Difference between using Prisma and using only Postgresql :
+Prisma : It allows developers to interact with the database using objects and methods
+Postgres : When using PostgreSQL directly, developers write queries in SQL, a domain-specific language for managing and manipulating databases

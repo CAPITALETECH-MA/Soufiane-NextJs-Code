@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Metadata } from "next";
-import UserForm from "@/app/components/userForm";
+import UserForm from "@/app/components/UserForm";
 
 export const metadata: Metadata = {
   title: "Add Users",

@@ -14,22 +14,21 @@ interface User {
 }
 
 const usersData = async () => {
-  const data = await fetch("https://jsonplaceholder.typicode.com/users",
-  { next: { revalidate: 3600 } }
-  );
+  const data = await fetch("http://localhost:3000/api/users");
+  // , {
+  //   // next: { revalidate: 3600 },
+  // });
   const users: User[] = await data.json();
 
   return (
     <>
-      <h3>
-        Users
-      </h3>
+      <h3>Users</h3>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
             {user.name}
             <EditDelete />
-            <p>{new Date().toLocaleTimeString()}</p>
+            {/* <p>{new Date().toLocaleTimeString()}</p> */}
           </li>
         ))}
       </ul>

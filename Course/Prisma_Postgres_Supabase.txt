@@ -1,0 +1,5 @@
+Documentation :
+https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-typescript-postgresql
+
+We change only the DATABASE_URL. 
+We assign to it the URI provided from supabase.

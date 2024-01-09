@@ -1,7 +1,7 @@
 // components/UserForm.tsx
 "use client";
 import React, { useState } from "react";
-import { FormData } from "../types/form";
+import { FormData } from "../types/userForm";
 
 const UserForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({

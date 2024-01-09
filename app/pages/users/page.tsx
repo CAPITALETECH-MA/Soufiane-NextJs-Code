@@ -14,10 +14,9 @@ interface User {
 }
 
 const usersData = async () => {
-  const data = await fetch("http://localhost:3000/api/users");
-  // , {
-  //   // next: { revalidate: 3600 },
-  // });
+  const data = await fetch("http://localhost:3000/api/users", {
+    next: { revalidate: 1000 },
+  });
   const users: User[] = await data.json();
 
   return (
@@ -28,7 +27,6 @@ const usersData = async () => {
           <li key={user.id}>
             {user.name}
             <EditDelete />
-            {/* <p>{new Date().toLocaleTimeString()}</p> */}
           </li>
         ))}
       </ul>

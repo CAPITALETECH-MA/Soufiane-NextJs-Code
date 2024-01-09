@@ -7,4 +7,44 @@ while Mongoose is used with MongoDB, a NoSQL database, to manage relationships b
 
 Difference between using Prisma and using only Postgresql :
 Prisma : It allows developers to interact with the database using objects and methods
-Postgres : When using PostgreSQL directly, developers write queries in SQL, a domain-specific language for managing and manipulating databases
+Postgres : When using PostgreSQL directly, developers write queries in SQL, a domain-specific language for managing and manipulating databases.
+
+    Example of a GET with prisma and with only postgresql :
+    
+    
+    // Get all users with PRISMA
+export async function GET(req: NextRequest) {
+  try {
+    // Fetch all users from the database
+    const users = await prisma.user.findMany();
+
+          // Return the list of users with a 200 status code
+    return NextResponse.json(users);
+  } catch (error) {
+    // Handle any unexpected errors
+    return NextResponse.json(
+      { message: "Error fetching users" },
+      { status: 500 }
+    );
+  }
+}
+
+// Get all users without PRISMA
+ export async function GET(req: NextRequest) {
+   try {
+    // Connect to the database
+    const client = await pool.connect();
+
+     // Fetch all users from the database
+     const query = 'SELECT * FROM users';
+     const res = await client.query(query);
+
+     client.release();
+
+     return NextResponse.json(res.rows);
+   } catch (error) {
+
+     return NextResponse.json({ message: "Error fetching users", error: error.message }, { status: 500 });
+   }
+
+ }

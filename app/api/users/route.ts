@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import prisma from "../../../prisma/client";
 
+// Zod Validator
 const usersValidator = z.object({
   name: z.string().min(8),
   email: z.string().email(),
@@ -24,26 +25,6 @@ export async function GET(req: NextRequest) {
     );
   }
 }
-
-// Get all users without PRISMA
-// export async function GET(req: NextRequest) {
-//   try {
-//     // Connect to the database
-//     const client = await pool.connect();
-
-//     // Fetch all users from the database
-//     const query = 'SELECT * FROM users';
-//     const res = await client.query(query);
-
-//     client.release();
-
-//     return NextResponse.json(res.rows);
-//   } catch (error) {
-
-//     return NextResponse.json({ message: "Error fetching users", error: error.message }, { status: 500 });
-//   }
-
-// }
 
 // ADD User
 export async function POST(req: NextRequest) {

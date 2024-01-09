@@ -1,10 +1,16 @@
 // components/UserForm.tsx
 "use client";
 import React, { useState } from "react";
-import { FormData } from "@/app/types/userForm";
+import { FormData, FormField } from "@/app/types/userForm";
 import { FormEvent, ChangeEvent } from "react";
 
 const UserForm = () => {
+  const formFields: FormField[] = [
+    { type: "text", name: "name", placeholder: "Name" },
+    { type: "number", name: "age", placeholder: "Age" },
+    { type: "email", name: "email", placeholder: "Email" },
+  ];
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     age: 0,
@@ -40,7 +46,7 @@ const UserForm = () => {
         throw new Error("Error submitting form");
       }
 
-      // Just fpr testing 
+      // Just fpr testing
       // const result = await response.json();
       // console.log(result);
 
@@ -54,45 +60,75 @@ const UserForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md"
-    >
-      <input
-        type="text"
-        name="name"
-        placeholder="Name"
-        className="border p-2 rounded"
-        value={formData.name}
-        onChange={handleChange}
-      />
-      <input
-        type="number"
-        name="age"
-        placeholder="Age"
-        className="border p-2 rounded"
-        value={formData.age}
-        onChange={handleChange}
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        className="border p-2 rounded"
-        value={formData.email}
-        onChange={handleChange}
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        disabled={isSubmitting}
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md"
       >
-        {isSubmitting ? "Submitting..." : "Submit"}
-      </button>
-      {submitError && <div className="text-red-500">{submitError}</div>}
-      {submitSuccess && <div className="text-green-500">{submitSuccess}</div>}
-    </form>
+        {formFields.map((field, index) => (
+          <input
+            key={index}
+            type={field.type}
+            name={field.name}
+            placeholder={field.placeholder}
+            className="border p-2 rounded"
+            value={formData[field.name]}
+            onChange={handleChange}
+          />
+        ))}
+        <button
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Submitting..." : "Submit"}
+        </button>
+        {submitError && <div className="text-red-500">{submitError}</div>}
+        {submitSuccess && <div className="text-green-500">{submitSuccess}</div>}
+      </form>
+    </>
   );
 };
 
 export default UserForm;
+
+{
+  /* <form
+onSubmit={handleSubmit}
+className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md"
+>
+<input
+  type="text"
+  name="name"
+  placeholder="Name"
+  className="border p-2 rounded"
+  value={formData.name}
+  onChange={handleChange}
+/>
+<input
+  type="number"
+  name="age"
+  placeholder="Age"
+  className="border p-2 rounded"
+  value={formData.age}
+  onChange={handleChange}
+/>
+<input
+  type="email"
+  name="email"
+  placeholder="Email"
+  className="border p-2 rounded"
+  value={formData.email}
+  onChange={handleChange}
+/>
+<button
+  type="submit"
+  className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+  disabled={isSubmitting}
+>
+  {isSubmitting ? "Submitting..." : "Submit"}
+</button>
+{submitError && <div className="text-red-500">{submitError}</div>}
+{submitSuccess && <div className="text-green-500">{submitSuccess}</div>}
+</form> */
+}
